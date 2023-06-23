@@ -20,6 +20,9 @@ parts:
       - libpcap-dev
       - linux-headers-5.4.0-26
       - llvm
+    prime:
+      - usr/local/lib/x86_64-linux-gnu/*.so
+      - usr/lib/libxdp*
 
   cndp:
     after:
@@ -44,6 +47,9 @@ parts:
       make static_build=1 rebuild install
       pushd lang/go/stats/prometheus/
       go build -o $CRAFT_PART_INSTALL/prometheus prometheus.go
+    prime:
+      - usr/local/lib/x86_64-linux-gnu/*.so
+      - usr/local/bin/cndpfwd
 
   dpdk:
     plugin: meson
@@ -79,6 +85,8 @@ parts:
     meson-parameters:
       - --buildtype=debugoptimized
       - -Dmachine=x86-64
+    prime:
+      - usr/local/lib/x86_64-linux-gnu/*.so
 
   bess:
     plugin: nil
