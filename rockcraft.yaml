@@ -138,7 +138,6 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/opt/bess/pybess
       cp -r bessctl/* $CRAFT_PART_INSTALL/opt/bess/bessctl/
       cp -r pybess/* $CRAFT_PART_INSTALL/opt/bess/pybess/
-      cp -r core/pb $CRAFT_PART_INSTALL/pb
 
   bess-python-deps:
     plugin: python
