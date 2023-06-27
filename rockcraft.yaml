@@ -27,7 +27,7 @@ parts:
   cndp:
     after:
       - xdp
-    plugin: nil
+    plugin: make
     source: https://github.com/CloudNativeDataPlane/cndp.git
     source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
     build-environment:
@@ -42,11 +42,8 @@ parts:
       - libnuma-dev
       - lld
     override-build: |
-      make
-      make install
+      craftctl default
       make static_build=1 rebuild install
-      pushd lang/go/stats/prometheus/
-      go build -o $CRAFT_PART_INSTALL/prometheus prometheus.go
     prime:
       - usr/local/lib/x86_64-linux-gnu/*.so
       - usr/local/bin/cndpfwd
