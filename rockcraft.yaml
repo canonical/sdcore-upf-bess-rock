@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu@20.04
+base: ubuntu@22.04
 version: '1.3'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
@@ -18,7 +18,8 @@ parts:
       - gcc-multilib
       - libelf-dev
       - libpcap-dev
-      - linux-headers-5.4.0-26
+      - linux-headers-generic
+      - linux-libc-dev
       - llvm
     prime:
       - usr/local/lib/x86_64-linux-gnu/*.so
@@ -42,7 +43,7 @@ parts:
     meson-parameters:
       - -Dbuildtype=release
       - -Dmachine=haswell
-      - -Ddefault_library=static
+      - -Ddefault_library=both
     override-build: |
       craftctl default
     prime:
@@ -119,13 +120,17 @@ parts:
     stage-packages:
       - libbpf0
       - libgflags2.2
-      - libjson-c4
+      - libjson-c5
       - libgraph-easy-perl
       - iproute2
       - iptables
       - iputils-ping
       - tcpdump
       - ethtool
+    build-environment:
+      - BESS_LINK_DYNAMIC: 1
+      - CPU: x86-64-v3
+      - CXXFLAGS: "-Wno-error=nonnull -Wno-error=maybe-uninitialized"
     override-build: |
       for file in $(find ./protobuf -name *.proto -print)
       do
