@@ -1,9 +1,9 @@
 ---
-name: sdcore-bess
+name: sdcore-upf-bess
 base: ubuntu:20.04
 version: '1.3'
-summary: SD-Core BESS
-description: SD-Core BESS
+summary: SD-Core UPF BESS
+description: SD-Core UPF BESS
 license: Apache-2.0
 platforms:
   amd64:

@@ -4,6 +4,6 @@ CONTRIBUTING.md # Contributing
 
 ```bash
 rockcraft pack -v
-sudo skopeo --insecure-policy copy oci-archive:sdcore-bess_1.3_amd64.rock docker-daemon:sdcore-bess:1.3
-docker run sdcore-bess:1.3
+sudo skopeo --insecure-policy copy oci-archive:sdcore-upf-bess_1.3_amd64.rock docker-daemon:sdcore-upf-bess:1.3
+docker run sdcore-upf-bess:1.3
 ```
