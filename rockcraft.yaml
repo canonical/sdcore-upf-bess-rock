@@ -27,11 +27,9 @@ parts:
   cndp:
     after:
       - xdp
-    plugin: make
+    plugin: meson
     source: https://github.com/CloudNativeDataPlane/cndp.git
     source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
-    build-environment:
-      - CNE_DEST_DIR: "${CRAFT_PART_INSTALL}"
     build-packages:
       - clang
       - golang
@@ -41,9 +39,12 @@ parts:
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
+    meson-parameters:
+      - -Dbuildtype=release
+      - -Dmachine=skylake
+      - -Ddefault_library=static
     override-build: |
       craftctl default
-      make static_build=1 rebuild install
     prime:
       - usr/local/lib/x86_64-linux-gnu/*.so
       - usr/local/bin/cndpfwd
@@ -81,7 +82,7 @@ parts:
       done
     meson-parameters:
       - --buildtype=debugoptimized
-      - -Dmachine=x86-64
+      - -Dmachine=skylake
     prime:
       - usr/local/lib/x86_64-linux-gnu/*.so
 
