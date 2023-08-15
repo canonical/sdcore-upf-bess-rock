@@ -41,7 +41,7 @@ parts:
       - lld
     meson-parameters:
       - -Dbuildtype=release
-      - -Dmachine=skylake
+      - -Dmachine=haswell
       - -Ddefault_library=static
     override-build: |
       craftctl default
@@ -82,7 +82,7 @@ parts:
       done
     meson-parameters:
       - --buildtype=debugoptimized
-      - -Dmachine=skylake
+      - -Dmachine=haswell
     prime:
       - usr/local/lib/x86_64-linux-gnu/*.so
 
