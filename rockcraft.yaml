@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu:20.04
+base: ubuntu@20.04
 version: '1.3'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
@@ -62,10 +62,17 @@ parts:
     prime:
       - usr/local/lib/aarch64-linux-gnu/*.so
 
+  libsimde:
+    plugin: meson
+    source: https://github.com/simd-everywhere/simde.git
+    source-branch: master
+    source-type: git
+
   bess:
     plugin: nil
     after:
       - dpdk
+      - libsimde
     source: https://github.com/ghislainbourgeois/bess.git
     source-tag: add-arm64-support
     source-type: git
