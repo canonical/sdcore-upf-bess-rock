@@ -7,6 +7,7 @@ description: SD-Core UPF BESS
 license: Apache-2.0
 platforms:
   amd64:
+  arm64:
 
 parts:
   xdp:
@@ -15,44 +16,20 @@ parts:
     source-tag: v1.2.2
     build-packages:
       - clang
-      - gcc-multilib
+      - gcc
       - libelf-dev
       - libpcap-dev
-      - linux-headers-5.4.0-26
+      - linux-libc-dev
       - llvm
     prime:
-      - usr/local/lib/x86_64-linux-gnu/*.so
+      - usr/local/lib/aarch64-linux-gnu/*.so
       - usr/lib/libxdp*
-
-  cndp:
-    after:
-      - xdp
-    plugin: meson
-    source: https://github.com/CloudNativeDataPlane/cndp.git
-    source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
-    build-packages:
-      - clang
-      - golang
-      - libbpf-dev
-      - libbsd-dev
-      - libnl-3-dev
-      - libnl-cli-3-dev
-      - libnuma-dev
-      - lld
-    meson-parameters:
-      - -Dbuildtype=release
-      - -Dmachine=haswell
-      - -Ddefault_library=static
     override-build: |
+      ln -sf /usr/include/aarch64-linux-gnu/asm /usr/include/asm
       craftctl default
-    prime:
-      - usr/local/lib/x86_64-linux-gnu/*.so
-      - usr/local/bin/cndpfwd
 
   dpdk:
     plugin: meson
-    after:
-      - cndp
     source: https://fast.dpdk.org/rel/dpdk-20.11.3.tar.gz
     source-type: tar
     build-packages:
@@ -82,16 +59,15 @@ parts:
       done
     meson-parameters:
       - --buildtype=debugoptimized
-      - -Dmachine=haswell
     prime:
-      - usr/local/lib/x86_64-linux-gnu/*.so
+      - usr/local/lib/aarch64-linux-gnu/*.so
 
   bess:
     plugin: nil
     after:
       - dpdk
-    source: https://github.com/omec-project/bess.git
-    source-tag: dpdk-2011-focal
+    source: https://github.com/ghislainbourgeois/bess.git
+    source-tag: add-arm64-support
     source-type: git
     build-packages:
       - ca-certificates
@@ -107,6 +83,7 @@ parts:
       - libnuma-dev
       - libpcap-dev
       - libprotobuf-dev
+      - libsimde-dev
       - libssl-dev
       - libunwind-dev
       - meson
