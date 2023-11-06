@@ -90,7 +90,6 @@ parts:
       - libnuma-dev
       - libpcap-dev
       - libprotobuf-dev
-      - libsimde-dev
       - libssl-dev
       - libunwind-dev
       - meson
