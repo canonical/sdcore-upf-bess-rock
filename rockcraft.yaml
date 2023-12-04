@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu:20.04
+base: ubuntu@20.04
 version: '1.3'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
