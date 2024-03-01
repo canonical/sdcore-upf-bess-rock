@@ -53,7 +53,7 @@ parts:
     plugin: meson
     after:
       - cndp
-    source: https://fast.dpdk.org/rel/dpdk-20.11.3.tar.gz
+    source: https://fast.dpdk.org/rel/dpdk-22.11.4.tar.gz
     source-type: tar
     build-packages:
       - ca-certificates
@@ -74,15 +74,17 @@ parts:
       - protobuf-compiler
       - protobuf-compiler-grpc
       - python3
+      - python3-pyelftools
+    meson-parameters:
+      - --buildtype=release
+      - -Denable_driver_sdk=true
+      - -Dmachine=haswell
     override-pull: |
       craftctl default
       for file in ${CRAFT_PROJECT_DIR}/local/patches/*
       do
         patch -i $file -p 1
       done
-    meson-parameters:
-      - --buildtype=debugoptimized
-      - -Dmachine=haswell
     prime:
       - usr/local/lib/x86_64-linux-gnu/*.so
 
@@ -90,8 +92,8 @@ parts:
     plugin: nil
     after:
       - dpdk
-    source: https://github.com/omec-project/bess.git
-    source-tag: dpdk-2011-focal
+    source: https://github.com/gab-arrobo/bess.git
+    source-branch: dpdk-22-11
     source-type: git
     build-packages:
       - ca-certificates
