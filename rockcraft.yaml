@@ -92,8 +92,8 @@ parts:
     plugin: nil
     after:
       - dpdk
-    source: https://github.com/gab-arrobo/bess.git
-    source-branch: dpdk-22-11
+    source: https://github.com/omec-project/bess.git
+    source-commit: dc7ef58702b3013a0b149b113340082dfbdca7cd
     source-type: git
     build-packages:
       - ca-certificates
@@ -131,7 +131,7 @@ parts:
       do
         protoc "$file" --proto_path=protobuf --python_out=pybess/builtin_pb --grpc_out=pybess/builtin_pb --plugin=protoc-gen-grpc=$(which grpc_python_plugin)
       done
-      make -C core bessd modules
+      make -j $(nproc) -C core bessd modules
       mkdir -p $CRAFT_PART_INSTALL/bin
       cp bin/bessd $CRAFT_PART_INSTALL/bin/bessd
       mkdir -p $CRAFT_PART_INSTALL/opt/bess/bessctl
