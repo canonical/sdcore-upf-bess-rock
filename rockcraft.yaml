@@ -7,6 +7,8 @@ description: SD-Core UPF BESS
 license: Apache-2.0
 platforms:
   amd64:
+environment:
+  LD_LIBRARY_PATH: "/usr/local/lib/x86_64-linux-gnu:/usr/local/lib"
 
 parts:
   xdp:
@@ -22,8 +24,7 @@ parts:
       - linux-libc-dev
       - llvm
     prime:
-      - usr/local/lib/x86_64-linux-gnu/*.so
-      - usr/lib/libxdp*
+      - usr/local/lib/x86_64-linux-gnu/*
 
   cndp:
     after:
@@ -40,14 +41,14 @@ parts:
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
+    stage-packages:
+      - libnuma1
     meson-parameters:
       - -Dbuildtype=release
       - -Dmachine=haswell
       - -Ddefault_library=both
-    override-build: |
-      craftctl default
     prime:
-      - usr/local/lib/x86_64-linux-gnu/*.so
+      - usr/local/lib/x86_64-linux-gnu/*
       - usr/local/bin/cndpfwd
 
   dpdk:
@@ -87,7 +88,7 @@ parts:
         patch -i $file -p 1
       done
     prime:
-      - usr/local/lib/x86_64-linux-gnu/*.so
+      - usr/local/lib/x86_64-linux-gnu/*
 
   bess:
     plugin: nil
@@ -118,10 +119,23 @@ parts:
       - protobuf-compiler-grpc
       - python3
     stage-packages:
+      - libatomic1
+      - libbenchmark1
       - libbpf0
+      - libbsd0
+      - libc-ares2
+      - libelf1
       - libgflags2.2
+      - libgoogle-glog0v5
+      - libgrpc++1
       - libjson-c5
-      - libgraph-easy-perl
+      - libnl-3-200
+      - libnl-cli-3-200
+      - libnuma1
+      - libpcap0.8
+      - libprotobuf-c1
+      - libssl3
+      - libunwind8
       - iproute2
       - iptables
       - iputils-ping
