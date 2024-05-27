@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu@22.04
+base: ubuntu@24.04
 version: '1.4.0'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
