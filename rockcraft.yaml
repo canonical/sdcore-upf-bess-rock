@@ -60,7 +60,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
+      - libbpf-dev
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -100,7 +100,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
+      - libbpf-dev
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -121,7 +121,7 @@ parts:
     stage-packages:
       - libatomic1
       - libbenchmark1
-      - libbpf0
+      - libbpf-dev
       - libbsd0
       - libc-ares2
       - libelf1
