@@ -182,16 +182,6 @@ parts:
       craftctl default
       ln -srf $CRAFT_PART_INSTALL/bin/python3 $CRAFT_PART_INSTALL/bin/python
 
-  version:
-    plugin: nil
-    override-build: |
-      mkdir -p ${CRAFT_PART_INSTALL}/etc/
-      echo ${CRAFT_PROJECT_VERSION} > ${CRAFT_PART_INSTALL}/etc/workload-version
-    organize:
-      "*": etc/
-    stage:
-      - etc/
-
   config:
     plugin: dump
     after:
@@ -201,3 +191,13 @@ parts:
     source-subdir: conf
     organize:
       "*": opt/bess/bessctl/conf/
+
+  version:
+    plugin: nil
+    override-build: |
+      mkdir -p ${CRAFT_PART_INSTALL}/etc/
+      echo ${CRAFT_PROJECT_VERSION} > ${CRAFT_PART_INSTALL}/etc/workload-version
+    organize:
+      "*": etc/
+    stage:
+      - etc/
