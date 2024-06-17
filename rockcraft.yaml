@@ -187,7 +187,17 @@ parts:
     after:
       - bess
     source: https://github.com/omec-project/upf.git
-    source-tag: v1.4.0
+    source-tag: v${CRAFT_PROJECT_VERSION}
     source-subdir: conf
     organize:
       "*": opt/bess/bessctl/conf/
+
+  version:
+    plugin: nil
+    override-build: |
+      mkdir -p ${CRAFT_PART_INSTALL}/etc/
+      echo ${CRAFT_PROJECT_VERSION} > ${CRAFT_PART_INSTALL}/etc/workload-version
+    organize:
+      "*": etc/
+    stage:
+      - etc/
