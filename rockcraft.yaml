@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu@22.04
+base: ubuntu@24.04
 version: '1.4.0'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
@@ -14,7 +14,7 @@ parts:
   xdp:
     plugin: autotools
     source: https://github.com/xdp-project/xdp-tools.git
-    source-tag: v1.2.2
+    source-tag: v1.4.3
     build-packages:
       - clang
       - gcc-multilib
@@ -25,28 +25,41 @@ parts:
       - llvm
     prime:
       - usr/local/lib/x86_64-linux-gnu/*
+  
+  libbpf:
+    plugin: nil
+    source: https://github.com/libbpf/libbpf.git
+    source-tag: v0.5.0
+    override-build: |
+      cd src/
+      make install
 
   cndp:
     after:
       - xdp
+      - libbpf
     plugin: meson
     source: https://github.com/CloudNativeDataPlane/cndp.git
     source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
     build-packages:
       - clang
       - golang
-      - libbpf-dev
       - libbsd-dev
       - libnl-3-dev
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
+      - meson
+      - libjson-c-dev
     stage-packages:
       - libnuma1
     meson-parameters:
       - -Dbuildtype=release
       - -Dmachine=haswell
       - -Ddefault_library=both
+      - -Dc_args=-Wno-error=stringop-overflow
+    build-environment:
+      - PKG_CONFIG_PATH: "/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig"
     prime:
       - usr/local/lib/x86_64-linux-gnu/*
       - usr/local/bin/cndpfwd
@@ -60,7 +73,6 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -100,7 +112,6 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -120,15 +131,15 @@ parts:
       - python3
     stage-packages:
       - libatomic1
-      - libbenchmark1
-      - libbpf0
+      - libbenchmark1.8.3
+      - libbpf1
       - libbsd0
       - libc-ares2
       - libelf1
       - libgflags2.2
-      - libgoogle-glog0v5
+      - libgoogle-glog0v6t64
       - libgraph-easy-perl
-      - libgrpc++1
+      - libgrpc++1.51t64
       - libjson-c5
       - libnl-3-200
       - libnl-cli-3-200
@@ -145,7 +156,7 @@ parts:
     build-environment:
       - BESS_LINK_DYNAMIC: 1
       - CPU: x86-64-v3
-      - CXXFLAGS: "-Wno-error=nonnull -Wno-error=maybe-uninitialized"
+      - CXXFLAGS: "-Wno-error=nonnull -Wno-error=maybe-uninitialized -I/root/parts/dpdk/install/usr/local/include -I/root/parts/cndp/install/usr/local/include/cndp"
     override-build: |
       for file in $(find ./protobuf -name *.proto -print)
       do
