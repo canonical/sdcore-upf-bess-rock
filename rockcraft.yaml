@@ -1,7 +1,7 @@
 ---
 name: sdcore-upf-bess
 base: ubuntu@22.04
-version: '1.4.0'
+version: '1.5.0'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
 license: Apache-2.0
