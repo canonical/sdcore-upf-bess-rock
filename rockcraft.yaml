@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu@22.04
+base: ubuntu@24.04
 version: '1.5.0'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
@@ -95,7 +95,7 @@ parts:
     after:
       - dpdk
     source: https://github.com/omec-project/bess.git
-    source-commit: dc7ef58702b3013a0b149b113340082dfbdca7cd
+    source-commit: 7f24ed0d62ce7002e60339f1c580781eb0c12e14
     source-type: git
     build-packages:
       - ca-certificates
