@@ -14,7 +14,7 @@ parts:
   xdp:
     plugin: autotools
     source: https://github.com/xdp-project/xdp-tools.git
-    source-tag: v1.4.3
+    source-tag: v1.2.2
     build-packages:
       - clang
       - gcc-multilib
@@ -25,41 +25,28 @@ parts:
       - llvm
     prime:
       - usr/local/lib/x86_64-linux-gnu/*
-  
-  libbpf:
-    plugin: nil
-    source: https://github.com/libbpf/libbpf.git
-    source-tag: v0.5.0
-    override-build: |
-      cd src/
-      make install
 
   cndp:
     after:
       - xdp
-      - libbpf
     plugin: meson
     source: https://github.com/CloudNativeDataPlane/cndp.git
-    source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
+    source-tag: v24.07.0
     build-packages:
       - clang
       - golang
+      - libbpf-dev
       - libbsd-dev
       - libnl-3-dev
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
-      - meson
-      - libjson-c-dev
     stage-packages:
       - libnuma1
     meson-parameters:
       - -Dbuildtype=release
       - -Dmachine=haswell
       - -Ddefault_library=both
-      - -Dc_args=-Wno-error=stringop-overflow
-    build-environment:
-      - PKG_CONFIG_PATH: "/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig"
     prime:
       - usr/local/lib/x86_64-linux-gnu/*
       - usr/local/bin/cndpfwd
@@ -73,6 +60,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
+      - libbpf1
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -112,6 +100,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
+      - libbpf1
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -132,7 +121,6 @@ parts:
     stage-packages:
       - libatomic1
       - libbenchmark1.8.3
-      - libbpf1
       - libbsd0
       - libc-ares2
       - libelf1
