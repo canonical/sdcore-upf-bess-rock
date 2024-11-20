@@ -41,6 +41,7 @@ parts:
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
+      - libxdp-dev
     stage-packages:
       - libnuma1
     meson-parameters:
