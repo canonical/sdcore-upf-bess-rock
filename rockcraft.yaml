@@ -1,6 +1,6 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu@22.04
+base: ubuntu@24.04
 version: '1.4.0'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
@@ -31,7 +31,7 @@ parts:
       - xdp
     plugin: meson
     source: https://github.com/CloudNativeDataPlane/cndp.git
-    source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
+    source-tag: v24.07.0
     build-packages:
       - clang
       - golang
@@ -41,6 +41,7 @@ parts:
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
+      - libxdp-dev
     stage-packages:
       - libnuma1
     meson-parameters:
@@ -60,7 +61,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
+      - libbpf1
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -100,7 +101,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
+      - libbpf1
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -120,15 +121,14 @@ parts:
       - python3
     stage-packages:
       - libatomic1
-      - libbenchmark1
-      - libbpf0
+      - libbenchmark1.8.3
       - libbsd0
       - libc-ares2
       - libelf1
       - libgflags2.2
-      - libgoogle-glog0v5
+      - libgoogle-glog0v6t64
       - libgraph-easy-perl
-      - libgrpc++1
+      - libgrpc++1.51t64
       - libjson-c5
       - libnl-3-200
       - libnl-cli-3-200
@@ -145,7 +145,7 @@ parts:
     build-environment:
       - BESS_LINK_DYNAMIC: 1
       - CPU: x86-64-v3
-      - CXXFLAGS: "-Wno-error=nonnull -Wno-error=maybe-uninitialized"
+      - CXXFLAGS: "-Wno-error=nonnull -Wno-error=maybe-uninitialized -I/root/parts/dpdk/install/usr/local/include -I/root/parts/cndp/install/usr/local/include/cndp"
     override-build: |
       for file in $(find ./protobuf -name *.proto -print)
       do
