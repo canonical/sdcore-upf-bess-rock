@@ -1,7 +1,7 @@
 ---
 name: sdcore-upf-bess
-base: ubuntu@22.04
-version: '1.4.0'
+base: ubuntu@24.04
+version: '1.0.1'
 summary: SD-Core UPF BESS
 description: SD-Core UPF BESS
 license: Apache-2.0
@@ -14,7 +14,7 @@ parts:
   xdp:
     plugin: autotools
     source: https://github.com/xdp-project/xdp-tools.git
-    source-tag: v1.2.2
+    source-tag: v1.4.3
     build-packages:
       - clang
       - gcc-multilib
@@ -31,7 +31,7 @@ parts:
       - xdp
     plugin: meson
     source: https://github.com/CloudNativeDataPlane/cndp.git
-    source-commit: d5ce4b9edc2e7ddb46a61b395deffafaf11a0500
+    source-tag: v24.07.0
     build-packages:
       - clang
       - golang
@@ -41,6 +41,7 @@ parts:
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
+      - libxdp-dev
     stage-packages:
       - libnuma1
     meson-parameters:
@@ -60,7 +61,7 @@ parts:
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
+      - libbpf1
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -95,12 +96,12 @@ parts:
     after:
       - dpdk
     source: https://github.com/omec-project/bess.git
-    source-commit: dc7ef58702b3013a0b149b113340082dfbdca7cd
+    source-tag: v${CRAFT_PROJECT_VERSION}
     source-type: git
     build-packages:
       - ca-certificates
       - libbenchmark-dev
-      - libbpf0
+      - libbpf1
       - libc-ares-dev
       - libelf-dev
       - libgflags2.2
@@ -118,17 +119,20 @@ parts:
       - protobuf-compiler
       - protobuf-compiler-grpc
       - python3
+      - libxdp-dev
+      - libmlx5-1
     stage-packages:
       - libatomic1
-      - libbenchmark1
-      - libbpf0
+      - libbenchmark-dev
+      - libbpf1
+      - libxdp-dev
       - libbsd0
       - libc-ares2
       - libelf1
       - libgflags2.2
-      - libgoogle-glog0v5
+      - libgoogle-glog0v6
       - libgraph-easy-perl
-      - libgrpc++1
+      - libgrpc++-dev
       - libjson-c5
       - libnl-3-200
       - libnl-cli-3-200
@@ -142,6 +146,7 @@ parts:
       - iputils-ping
       - tcpdump
       - ethtool
+      - libmlx5-1
     build-environment:
       - BESS_LINK_DYNAMIC: 1
       - CPU: x86-64-v3
@@ -187,7 +192,7 @@ parts:
     after:
       - bess
     source: https://github.com/omec-project/upf.git
-    source-tag: v${CRAFT_PROJECT_VERSION}
+    source-tag: v1.5.0
     source-subdir: conf
     organize:
       "*": opt/bess/bessctl/conf/
