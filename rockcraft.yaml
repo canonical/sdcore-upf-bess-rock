@@ -41,7 +41,7 @@ parts:
       - libnl-cli-3-dev
       - libnuma-dev
       - lld
-      - libxdp1
+      - libxdp-dev
     stage-packages:
       - libnuma1
     meson-parameters:
@@ -119,13 +119,13 @@ parts:
       - protobuf-compiler
       - protobuf-compiler-grpc
       - python3
-      - libxdp1
+      - libxdp-dev
       - libmlx5-1
     stage-packages:
       - libatomic1
       - libbenchmark-dev
       - libbpf1
-      - libxdp1
+      - libxdp-dev
       - libbsd0
       - libc-ares2
       - libelf1
