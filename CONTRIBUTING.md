@@ -1,4 +1,4 @@
-CONTRIBUTING.md # Contributing
+# Contributing
 
 ## Build and deploy
 
